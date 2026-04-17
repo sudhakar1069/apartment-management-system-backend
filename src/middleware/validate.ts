@@ -6,9 +6,9 @@ import { errorResponse } from "../utils/response.js";
 export const validate = (schema: ZodSchema) => {
     return (req: Request, res: Response, next: NextFunction) => {
         try {
-            schema.parse(req.body); // validate
+            schema.parse(req.body);
             next();
-        } catch (err:unknown) {
+        } catch (err: unknown) {
             if (err instanceof ZodError) {
                 const formattedErrors = err.issues.map((e) => ({
                     field: e.path[0],

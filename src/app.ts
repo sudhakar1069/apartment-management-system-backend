@@ -1,19 +1,24 @@
 import express from "express";
 import authRoutes from "./routes/authRoutes.js";
-import apartRoutes from "./routes/apartmentRoutes.js"
-import { globalLimiter, loginLimiter } from "./middleware/ratelimiter.js"
+import apartmentRoutes from "./routes/apartmentRoutes.js"
 import { errorHandler } from "./middleware/errorHandler.js";
 import cors from "cors";
+import cookieParser from "cookie-parser";
+import swaggerUi from "swagger-ui-express";
+import { swaggerSpec } from "./config/swagger.js";
+import { globalLimiter } from "./middleware/ratelimiter.js";
 
 const app = express();
-app.use(express.json());
-app.use(globalLimiter, loginLimiter);
 app.use(cors({
-  origin: "http://localhost:3000",
+  origin: "http://localhost:5173",
   credentials: true
 }));
+app.use(express.json());
+app.use(cookieParser())
+app.use(globalLimiter);
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.use("/api/auth", authRoutes);
-app.use("/api/apartments", apartRoutes)
+app.use("/api/apartments", apartmentRoutes)
 app.use("/uploads", express.static("uploads"));
 
 app.use((req, res) => {

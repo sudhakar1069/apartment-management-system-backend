@@ -3,14 +3,12 @@ export const successResponse=(res:any,message:any,data:any,status=200)=>{
         success:true,
         message,
         data,
-        error:null
     });
 };
 export const errorResponse=(res:any,message:any,error:any,status=500)=>{
     return res.status(status).json({
         success:false,
         message,
-        data:null,
         error
     });
 };

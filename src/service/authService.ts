@@ -41,17 +41,17 @@ export class AuthService {
             }
         };
     }
-    //     async logout(userId: string) {
-    //         const user = await this.userRepository.findById(userId);
-    //         if (!user) {
-    //             throw { status: 404, message: "User not found" };
-    //         }
-    //         if (!user.refreshToken) {
-    //             return { message: "User already logged out" };
-    //         }
-    //         user.refreshToken = null;
-    //         await this.userRepository.save(user);
+        async logout(userId: string) {
+            const user = await this.userRepository.findById(userId);
+            if (!user) {
+                throw { status: 404, message: "User not found" };
+            }
+            if (!user.refreshToken) {
+                return { message: "User already logged out" };
+            }
+            user.refreshToken = null;
+            await this.userRepository.save(user);
 
-    //         return { message: "Logged out successfully" };
-    //     }
+            return { message: "Logged out successfully" };
+        }
 }

@@ -10,6 +10,7 @@ export const Apartment = sequelize.define("apartments",
         },
         title: {
             type: DataTypes.STRING,
+            unique:true,
             allowNull: false,
         },
         description: {
@@ -49,7 +50,8 @@ export const Apartment = sequelize.define("apartments",
             type: DataTypes.STRING(15),
         },
         image:{
-            type:DataTypes.STRING,
+            type:DataTypes.TEXT,
+            allowNull:true
         }
     },
     {

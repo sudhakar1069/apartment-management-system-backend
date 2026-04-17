@@ -7,6 +7,9 @@ export class ApartmentRepository {
     async findById(id: number) {
         return await Apartment.findByPk(id);
     }
+     async findByEmail(email:string) {
+        return await Apartment.findOne({where:{email}});
+    }
 
     async getApartments(filters: any, page: number, limit: number) {
         const whereClause: any = {};

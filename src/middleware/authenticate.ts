@@ -1,8 +1,11 @@
+import type { NextFunction, Response, Request } from "express";
 import jwt from "jsonwebtoken";
 
-export const authenticate = (req: any, res: any, next: any) => {
-  const token = req.headers.authorization?.split(" ")[1];
-
+export const authenticate = (req: any, res: Response, next: NextFunction) => {
+  let token = req.cookies?.accessToken;
+  if (!token && req.headers.authorization) {
+    token=req.headers.authorization?.split(" ")[1];
+  }
   if (!token) return res.status(401).json({ message: "No token" });
 
   try {
@@ -10,6 +13,6 @@ export const authenticate = (req: any, res: any, next: any) => {
     req.user = decoded;
     next();
   } catch {
-    res.status(403).json({ message: "Invalid token" });
+    return res.status(403).json({ message: "Invalid token" });
   }
 };

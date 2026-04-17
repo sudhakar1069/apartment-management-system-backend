@@ -31,6 +31,7 @@ export const User = sequelize.define("users", {
         type: DataTypes.ENUM("user", "admin"),
         defaultValue: "user",
     },
+    refreshToken: { type: DataTypes.STRING, allowNull: true }
 },
     {
         tableName: "users",

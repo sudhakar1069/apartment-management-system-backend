@@ -14,7 +14,7 @@ const startServer = async () => {
             console.log(` Server running on port ${PORT}`);
         });
     } catch (err) {
-        console.error("Failed to connect to database:");
+        console.error("Failed to connect database:");
     }
 };
 startServer();

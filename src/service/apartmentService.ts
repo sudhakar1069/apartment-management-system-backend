@@ -2,7 +2,7 @@
 export class ApartmentService {
     constructor(private apartmentRepository: any) { }
      baseURL="http://localhost:5000";
-    async registerApartment(data: any) {
+    async registerApartment(data:any) {
         const { title, description, area, city,price,noOfFlats,ownerName,contactNumber,email,image} = data;
         const apartment = await this.apartmentRepository.create({
             title,
