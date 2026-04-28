@@ -7,6 +7,7 @@ import cookieParser from "cookie-parser";
 import swaggerUi from "swagger-ui-express";
 import { swaggerSpec } from "./config/swagger.js";
 import { globalLimiter } from "./middleware/ratelimiter.js";
+import { logger } from "./middleware/logger.js";
 
 const app = express();
 app.use(cors({
@@ -14,6 +15,7 @@ app.use(cors({
   credentials: true
 }));
 app.use(express.json());
+app.use(logger)
 app.use(cookieParser())
 app.use(globalLimiter);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));

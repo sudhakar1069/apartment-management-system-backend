@@ -30,7 +30,7 @@ export class AuthService {
         }
         const accessToken = AccessToken(user);
         const refreshToken = RefreshToken(user);
-        user.refreshToken = refreshToken;
+        user.refreshToken = await bcrypt.hash(refreshToken,10);
         await this.userRepository.save(user);
         return {
             accessToken, refreshToken, user: {
